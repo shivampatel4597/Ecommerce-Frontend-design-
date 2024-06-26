@@ -53,10 +53,15 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 
   }
 
-  Viewpage = (itemIndex)=>{
+  Viewpage = (itemId)=>{
    const {navigate} = this.props.router;
-   navigate(`/singleproduct/${itemIndex}`)
+   navigate(`/singleproduct/${itemId}`)
   
+  }
+
+  addCart = (itemId)=>{
+    const {navigate} = this.props.router;
+    navigate(`/cart/${itemId}`)
   }
 
 
@@ -81,12 +86,12 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
         arr.products && arr.products.map((item, itemIndex) => {
           
 
-        return  <div onClick={()=>  this.Viewpage(itemIndex)} className='flex flex-col items-center justify-center w-80 h-80 px-5 border-2 rounded-lg border-gray shadow-2xl hover:cursor-pointer' >
+        return  <div  className='flex flex-col items-center justify-center w-80 h-80 px-5 border-2 rounded-lg border-gray shadow-2xl hover:cursor-pointer' >
        <button className=' w-full  text-gray-400 text-start '>{<FavoriteIcon/>}</button>
-               <img className=' w-full h-[60%] hover:scale-[1.1] hover:translate-x-1 hover:translate-y-1' src={item.images[0]} />
+               <img onClick={()=>  this.Viewpage(item.id)} className=' w-full h-[60%] hover:scale-[1.1] hover:translate-x-1 hover:translate-y-1' src={item.thumbnail} />
          <p >{item.title}</p>
-         <p className='font-bold'>Rs {item.price}</p>
-         <button className='w-full py-1 my-2 bg-blue-500 text-white'>ADD To CART</button>
+         <p className='font-bold'>Rs {Math.round(item.price *80)}</p>
+         <button onClick={()=>this.addCart(item.id)} className='w-full py-1 my-2 bg-blue-500 text-white'>ADD To CART</button>
               </div> 
 
 
